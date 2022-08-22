@@ -96,7 +96,7 @@
                         <input th:value="${l.sortValue}" type="text" name="sortValue" />
                     </td>
                     <td>
-                        <input th:checked="${l.usingYn}" type="checkbox" th:id="'usingYn_' + ${l.id}" th:name="'usingYn_'+ ${l.id}" value="true" />
+                        <input th:checked="${l.usingYn}" type="checkbox" th:id="'usingYn_' + ${l.id}" th:name="'usingYn_'+ ${l.id}" th:value="${l.usingYn}" />
                         <label th:for="'usingYn_' + ${l.id}">사용</label>
                     </td>
                     <td>
