@@ -15,6 +15,7 @@ import java.util.List;
 @Data
 public class CategoryDto {
     Long id;
+    long categoryId;
     String categoryName;
     int sortValue;
     boolean usingYn;
@@ -34,7 +35,7 @@ public class CategoryDto {
                 .id(category.getId())
                 .categoryName(category.getCategoryName())
                 .sortValue(category.getSortValue())
-                .usingYn(true)
+                .usingYn(category.isUsingYn())
                 .build();
     }
 }
