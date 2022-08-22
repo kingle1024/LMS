@@ -1,10 +1,7 @@
 package com.myapp.lms.admin.service;
 
 import com.myapp.lms.admin.dto.CategoryDto;
-import com.myapp.lms.admin.entity.Category;
 import com.myapp.lms.admin.model.CategoryInput;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
 
 public interface CategoryService {
