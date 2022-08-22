@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>강좌 관리</title>
+    <style>
+        .list table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .list table th{
+            border:solid 1px #000;
+        }
+        .list table td{
+            border:solid 1px #000;
+        }
+
+        .pager {
+            margin-top : 20px;
+            text-align: center;
+        }
+        .pager a.on{
+            font-weight: bold;
+            color:red;
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $('form[name=deleteForm]').on('submit', function(){
+                if(!confirm('코스를 삭제하시겠습니까?')){
+                    return false;
+                }
+            });
+        });
+    </script>
+<body>
+<div>
+    <a href="/admin/course/add.do">강좌 등록</a>
+</div>
+    <h1>강좌 관리</h1>
+    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+
+    <div class="list">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>카테고리명</th>
+                    <th>순서</th>
+                    <th>사용 여부</th>
+                    <th>삭제</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="l : ${list}">
+                    <td th:text="${l.id}">
+                        <input type="hidden" name="id" th:value="${l.id}">
+                    </td>
+                    <td>
+                        <p>
+                            <a th:href="'edit.do?id=' + ${l.id}"
+                               th:text="${l.subject}">강좌명
+                            </a>
+                        </p>
+                    </td>
+                    <td th:text="${l.regDt}"></td>
+                    <td>
+                        <div class="inline-div">
+                            <form name="deleteForm" method="post" action="/admin/course/delete.do">
+                                <input type="hidden" name="id" th:value="${l.id}" />
+                                <button type="submit">삭제하기</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.size(list) < 1}">
+                    <td colspan="5">
+                        <p class="nothing">내용이 없습니다.</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pager" th:utext="${pager}">
+
+    </div>
+
+</body>
+</html>
