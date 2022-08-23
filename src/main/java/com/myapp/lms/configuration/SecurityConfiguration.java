@@ -28,6 +28,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        http.headers().frameOptions().sameOrigin();
+
         http.authorizeRequests()
                 .antMatchers( // 로그인이 없어도 접근 가능한 위치를 정의
                         "/",
