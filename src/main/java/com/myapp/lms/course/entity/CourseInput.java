@@ -13,4 +13,7 @@ public class CourseInput {
     long price;
     long salePrice;
     String saleEndDtText;
+
+    // delete
+    String idList;
 }

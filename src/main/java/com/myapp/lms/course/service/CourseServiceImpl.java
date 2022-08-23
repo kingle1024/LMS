@@ -66,8 +66,20 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public boolean del(CourseInput parameter) {
-        courseRepository.deleteById(parameter.getId());
+    public boolean del(String idList) {
+        if(idList !=  null && idList.length() > 0){
+            String[] ids = idList.split(",");
+            for(String x : ids){
+                long id = 0L;
+                try{
+                    id = Long.parseLong(x);
+                }catch(Exception e){}
+
+                if (id > 0) {
+                    courseRepository.deleteById(id);
+                }
+            }
+        }
         return true;
     }
 

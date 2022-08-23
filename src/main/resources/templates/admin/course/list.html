@@ -14,6 +14,24 @@
         .list table td{
             border:solid 1px #000;
         }
+        .list .buttons{
+            padding: 10px 0;
+        }
+        .list .buttons a, .list .buttons button{
+            border-width: 0;
+            background-color : transparent;
+            text-decoration: underline;
+            font-size: 14px;
+            line-height:20px;
+            height:20px;
+            color: #000;
+            cursor:pointer;
+        }
+        .list .buttons .total-count{
+            position: absolute;
+            top: 0;
+            right : 0;
+        }
 
         .pager {
             margin-top : 20px;
@@ -26,35 +44,68 @@
 
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
     <script>
-        $(document).ready(function(){
-            $('form[name=deleteForm]').on('submit', function(){
-                if(!confirm('코스를 삭제하시겠습니까?')){
+        $(document).ready(function (){
+             $('#selectAll').on('click', function(){
+                var checked = $(this).is(':checked');
+                $('#dataList input[type=checkbox]').each(function(k, v){
+                    $(this).prop('checked', checked);
+                });
+
+             });
+
+            $('#deleteButton').on('click', function(){
+                var $checked = $('#dataList input[type=checkbox]:checked');
+
+                if($checked.length < 1){
+                    alert('삭제할 데이터를 선택해 주세요.');
                     return false;
                 }
+                if(!confirm('선택한 데이터를 삭제하시겠습니까?')){
+                    return false;
+                }
+                var idList = [];
+                $.each($checked, function(k, v){
+                    idList.push($(this).val());
+                });
+
+                var $deleteForm = $('form[name=deleteForm]');
+                $deleteForm.find('input[name=idList]').val(idList.join(','));
+                $deleteForm.submit();
             });
         });
     </script>
 <body>
-<div>
-    <a href="/admin/course/add.do">강좌 등록</a>
-</div>
+
     <h1>강좌 관리</h1>
     <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
 
+
+
     <div class="list">
+        <div class="buttons">
+            <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
+
+            <a href="/admin/course/add.do">강좌 등록</a>
+            |
+            <button id="deleteButton" type="button">선택 삭제</button>
+        </div>
+
         <table>
             <thead>
                 <tr>
+                    <th><input id="selectAll" type="checkbox"></th>
                     <th>ID</th>
                     <th>카테고리명</th>
-                    <th>순서</th>
-                    <th>사용 여부</th>
-                    <th>삭제</th>
+                    <th>등록일</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="dataList">
                 <tr th:each="l : ${list}">
+                    <td>
+                        <input type="checkbox" th:value="${l.id}">
+                    </td>
                     <td th:text="${l.id}">
                         <input type="hidden" name="id" th:value="${l.id}">
                     </td>
@@ -70,7 +121,6 @@
                         <div class="inline-div">
                             <form name="deleteForm" method="post" action="/admin/course/delete.do">
                                 <input type="hidden" name="id" th:value="${l.id}" />
-                                <button type="submit">삭제하기</button>
                             </form>
                         </div>
                     </td>
@@ -83,9 +133,11 @@
             </tbody>
         </table>
     </div>
-    <div class="pager" th:utext="${pager}">
+    <div class="pager" th:utext="${pager}"></div>
 
-    </div>
-
+<form name="deleteForm" method="post" action="/admin/course/delete.do">
+    <input type="hidden" name="idList" />
+    <button type="submit">삭제</button>
+</form>
 </body>
 </html>

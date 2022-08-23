@@ -23,7 +23,7 @@ public interface CourseService{
      */
     List<CourseDto> list(CourseParam parameter);
 
-    boolean del(CourseInput parameter);
+    boolean del(String idList);
 
     /**
      * 강좌 상세 정보
