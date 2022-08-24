@@ -38,4 +38,18 @@ public interface CourseService{
      * @return
      */
     boolean set(CourseInput parameter);
+
+    /**
+     * 프론트 강좌 목록
+     * @param parameter
+     * @return
+     */
+    List<CourseDto> frontList(CourseParam parameter);
+
+    /**
+     * 프론트 강좌 상세 정보
+     * @param courseId
+     * @return
+     */
+    CourseDto frontDetail(long courseId);
 }

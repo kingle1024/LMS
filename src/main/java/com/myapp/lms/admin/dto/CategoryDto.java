@@ -20,6 +20,8 @@ public class CategoryDto {
     int sortValue;
     boolean usingYn;
 
+    int courseCount;
+
     public static List<CategoryDto> of (List<Category> categories){
         if(categories != null){
             List<CategoryDto> categoryList = new ArrayList<>();

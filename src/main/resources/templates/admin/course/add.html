@@ -35,7 +35,7 @@
                 <th>강좌 카테고리</th>
                 <td>
                     <select name="categoryId" required>
-                        <option value="">카고리 선택</option>
+                        <option value="">카테고리 선택</option>
                         <option th:each="x : ${category}"
                                 th:value="${x.id}"
                                 th:selected="${detail.categoryId == x.id}"
@@ -44,14 +44,14 @@
                 </td>
             </tr>
             <tr>
-                <th>강좌명 : </th>
+                <th>강좌명</th>
                 <td>
                     <input th:value="${detail.subject}" type="text" name="subject" placeholder="강좌명을 입력하세요" required>
                 </td>
             </tr>
             <tr>
                 <th>
-
+                    키워드
                 </th>
                 <td>
                     <input th:value="${detail.keyword}" type="text" name="keyword" required placeholder="키워드 입력" />
@@ -62,7 +62,7 @@
                     요약문구
                 </th>
                 <td>
-                    <textarea th:text="${detail.summary}" name="summary" required placeholder="키워드 입력"></textarea>
+                    <textarea th:text="${detail.summary}" name="summary" required placeholder="요약문구 입력"></textarea>
                 </td>
             </tr>
             <tr>
@@ -94,7 +94,7 @@
                     할인 종료일
                 </th>
                 <td>
-                    <input th:value="${detail.saleEndDt}" type="text" name="saleEndDtText" placeholder="키워드 입력" />
+                    <input th:value="${detail.saleEndDt}" type="text" name="saleEndDtText" placeholder="yyyy-MM-dd" />
                 </td>
             </tr>
         </table>

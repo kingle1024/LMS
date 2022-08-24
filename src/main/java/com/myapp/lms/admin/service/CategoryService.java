@@ -26,5 +26,5 @@ public interface CategoryService {
      * @return
      */
     boolean del(long id);
-
+    List<CategoryDto> frontList(CategoryDto parameter);
 }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>강좌 정보 페이지</title>
+    <style>
+        span.price{
+            text-decoration:line-through;
+        }
+    </style>
+</head>
+<body>
+    <h1>강좌 정보 페이지</h1>
+    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+    <div th:text="${list}"></div>
+
+    <div th:text="${categoryList}"></div>
+    <div>
+        <a href="?">
+            전체 (<span th:text="${courseTotalCount}"></span>)
+        </a>
+        <th:block th:each="y : ${categoryList}">
+            |
+            <a th:href="'/course?categoryId='+${y.id}">
+                <span th:text="${y.categoryName}">카테고리명 </span>
+                (<span th:text="${y.courseCount}">0</span>)
+            </a>
+        </th:block>
+    </div>
+
+    <ul>
+        <li th:each="l : ${list}">
+            <div>
+                <a th:href="'/course/'+${l.id}" >
+                    <h3 th:text="${l.subject}">강좌명</h3>
+                </a>
+                <div>
+                    <p th:text="${l.summary}"></p>
+                    <p th:text="${l.price}">
+                        판매가 : <span class="price" th:text="${l.price}"></span>
+                        할인가 : <span th:text="${l.salePrice}"></span>
+                    </p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</body>
+</html>
