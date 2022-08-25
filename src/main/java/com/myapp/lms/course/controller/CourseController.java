@@ -3,18 +3,13 @@ package com.myapp.lms.course.controller;
 import com.myapp.lms.admin.dto.CategoryDto;
 import com.myapp.lms.admin.service.CategoryService;
 import com.myapp.lms.course.dto.CourseDto;
-import com.myapp.lms.course.entity.CourseInput;
 import com.myapp.lms.course.model.CourseParam;
 import com.myapp.lms.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequiredArgsConstructor

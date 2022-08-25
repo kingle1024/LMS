@@ -1,9 +1,10 @@
 package com.myapp.lms.course.service;
 
 import com.myapp.lms.course.dto.CourseDto;
-import com.myapp.lms.course.entity.Course;
-import com.myapp.lms.course.entity.CourseInput;
+import com.myapp.lms.course.model.CourseInput;
 import com.myapp.lms.course.model.CourseParam;
+import com.myapp.lms.course.model.ServiceResult;
+import com.myapp.lms.course.model.TakeCourseInput;
 
 import java.util.List;
 
@@ -52,4 +53,6 @@ public interface CourseService{
      * @return
      */
     CourseDto frontDetail(long courseId);
+
+    ServiceResult req(TakeCourseInput parameter);
 }

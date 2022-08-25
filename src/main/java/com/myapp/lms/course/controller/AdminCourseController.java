@@ -2,7 +2,7 @@ package com.myapp.lms.course.controller;
 
 import com.myapp.lms.admin.service.CategoryService;
 import com.myapp.lms.course.dto.CourseDto;
-import com.myapp.lms.course.entity.CourseInput;
+import com.myapp.lms.course.model.CourseInput;
 import com.myapp.lms.course.model.CourseParam;
 import com.myapp.lms.course.service.CourseService;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.myapp.lms.course.entity;
+package com.myapp.lms.course.model;
 
 import lombok.Data;
 
