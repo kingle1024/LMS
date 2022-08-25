@@ -1,6 +1,7 @@
 package com.myapp.lms.course.controller;
 
 import com.myapp.lms.admin.service.CategoryService;
+import com.myapp.lms.common.model.ResponseResult;
 import com.myapp.lms.course.model.ServiceResult;
 import com.myapp.lms.course.model.TakeCourseInput;
 import com.myapp.lms.course.service.CourseService;
@@ -29,9 +30,10 @@ public class ApiCourseController extends BaseController{
 
         ServiceResult result = courseService.req(parameter);
         if(!result.isResult()){
-            return ResponseEntity.ok().body(result.getMessage());
+            ResponseResult responseResult = new ResponseResult(false, result.getMessage());
+            return ResponseEntity.ok().body(responseResult);
         }
-
-        return ResponseEntity.ok().body(parameter);
+        ResponseResult responseResult = new ResponseResult(true);
+        return ResponseEntity.ok().body(responseResult);
     }
 }
