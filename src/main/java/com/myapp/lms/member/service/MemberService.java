@@ -2,6 +2,7 @@ package com.myapp.lms.member.service;
 
 import com.myapp.lms.admin.dto.MemberDto;
 import com.myapp.lms.admin.model.MemberParam;
+import com.myapp.lms.course.model.ServiceResult;
 import com.myapp.lms.member.entity.Member;
 import com.myapp.lms.member.model.MemberInput;
 import com.myapp.lms.member.model.ResetPasswordInput;
@@ -69,4 +70,8 @@ public interface MemberService extends UserDetailsService {
      * @return
      */
     boolean updatePassword(String userId, String password);
+    /**
+     *  회원 정보 페이지에서 비밀번호 변경 기능
+     */
+    ServiceResult updateMemberPassword(MemberInput parameter);
 }

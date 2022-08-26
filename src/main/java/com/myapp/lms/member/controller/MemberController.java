@@ -1,8 +1,9 @@
 package com.myapp.lms.member.controller;
 
+import com.myapp.lms.admin.dto.MemberDto;
+import com.myapp.lms.course.model.ServiceResult;
 import com.myapp.lms.member.model.MemberInput;
 import com.myapp.lms.member.model.ResetPasswordInput;
-import com.myapp.lms.member.repository.MemberRepository;
 import com.myapp.lms.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 
 @RequiredArgsConstructor // memberService의 생성자가 추가되지 않아도 됨
 @Controller
@@ -105,8 +107,34 @@ public class MemberController {
     }
 
     @GetMapping("/member/info")
-    public String memberInfo(){
+    public String memberInfo(Principal principal, Model model){
+        MemberDto detail = memberService.detail(principal.getName());
+        model.addAttribute("detail", detail);
         return "member/info";
     }
+    @GetMapping("/member/password")
+    public String memberPassword(Principal principal, Model model){
 
+        return "member/password";
+    }
+    @PostMapping("/member/password")
+    public String memberPasswordSubmit(
+            Principal principal,
+            MemberInput parameter,
+            Model model){
+
+        String userId = principal.getName();
+        parameter.setUserId(userId);
+
+        ServiceResult result = memberService.updateMemberPassword(parameter);
+        if(!result.isResult()){
+            model.addAttribute("message", result.getMessage());
+            return "common/error";
+        }
+        return "redirect:/member/info";
+    }
+    @GetMapping("/member/takecourse")
+    public String memberTakeCourse(Principal principal, Model model){
+        return "member/takecourse";
+    }
 }

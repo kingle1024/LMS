@@ -4,6 +4,7 @@ import com.myapp.lms.admin.dto.MemberDto;
 import com.myapp.lms.admin.mapper.MemberMapper;
 import com.myapp.lms.admin.model.MemberParam;
 import com.myapp.lms.component.MailComponents;
+import com.myapp.lms.course.model.ServiceResult;
 import com.myapp.lms.member.entity.Member;
 import com.myapp.lms.member.entity.MemberCode;
 import com.myapp.lms.member.exception.MemberNotEmailAuthException;
@@ -197,6 +198,23 @@ public class MemberServiceImpl implements MemberService {
         member.setPassword(encPassword);
         memberRepository.save(member);
         return true;
+    }
+
+    @Override
+    public ServiceResult updateMemberPassword(MemberInput parameter) {
+        Optional<Member> optionalMember = memberRepository.findById(parameter.getUserId());
+        if(!optionalMember.isPresent()){
+            return new ServiceResult(false, "회원 정보가 존재하지 않습니다.");
+        }
+        Member member = optionalMember.get();
+        if(!BCrypt.checkpw(parameter.getPassword(), member.getPassword())){
+            return new ServiceResult(false, "비밀번호가 일치하지 않습니다.");
+        }
+
+        String encPassword = BCrypt.hashpw(parameter.getNewPassword(), BCrypt.gensalt());
+        member.setPassword(encPassword);
+        memberRepository.save(member);
+        return new ServiceResult(true);
     }
 
     private void sendMail(Member member) {
