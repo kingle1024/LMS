@@ -109,8 +109,27 @@ public class MemberController {
     @GetMapping("/member/info")
     public String memberInfo(Principal principal, Model model){
         MemberDto detail = memberService.detail(principal.getName());
+        System.out.println("++");
+        System.out.println(detail.getUdtDt());
+        System.out.println(detail.getUdtDtText());
         model.addAttribute("detail", detail);
         return "member/info";
+    }
+    @PostMapping("/member/info")
+    public String memberInfoSubmit(
+            Principal principal,
+            MemberInput parameter,
+            Model model){
+        parameter.setUserId(principal.getName());
+
+        ServiceResult result = memberService.updateMember(parameter);
+
+        if(!result.isResult()){
+            model.addAttribute("message", result.getMessage());
+            return "common/error";
+        }
+
+        return "redirect:/member/info";
     }
     @GetMapping("/member/password")
     public String memberPassword(Principal principal, Model model){

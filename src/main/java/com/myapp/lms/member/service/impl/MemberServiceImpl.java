@@ -217,6 +217,22 @@ public class MemberServiceImpl implements MemberService {
         return new ServiceResult(true);
     }
 
+    @Override
+    public ServiceResult updateMember(MemberInput parameter) {
+        Optional<Member> optionalMember = memberRepository.findById(parameter.getUserId());
+
+        if(!optionalMember.isPresent()){
+            return new ServiceResult(false, "회원 정보가 존재하지 않습니다.");
+        }
+
+        Member member = optionalMember.get();
+        member.setPhone(parameter.getPhone());
+        member.setUdtDt(LocalDateTime.now());
+        memberRepository.save(member);
+
+        return new ServiceResult(true);
+    }
+
     private void sendMail(Member member) {
         String email = member.getUserId();
         String subject = "[lms] 메일 인증입니다.";

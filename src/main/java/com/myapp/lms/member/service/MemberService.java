@@ -8,6 +8,7 @@ import com.myapp.lms.member.model.MemberInput;
 import com.myapp.lms.member.model.ResetPasswordInput;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.security.Provider;
 import java.util.List;
 
 public interface MemberService extends UserDetailsService {
@@ -74,4 +75,12 @@ public interface MemberService extends UserDetailsService {
      *  회원 정보 페이지에서 비밀번호 변경 기능
      */
     ServiceResult updateMemberPassword(MemberInput parameter);
+
+    /**
+     * 회원 정보 수정
+     * @param parameter
+     * @return
+     */
+    ServiceResult updateMember(MemberInput parameter);
+
 }
