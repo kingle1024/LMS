@@ -35,4 +35,9 @@ public class Member implements MemberCode{
     // 회원에 따른 ROLE을 지정할꺼냐?
     private boolean adminYn;
     private String userStatus; // 이용 가능한 상태, 정지 상태
+
+    private String zipcode;
+    private String addr;
+    private String addrDetail;
+
 }

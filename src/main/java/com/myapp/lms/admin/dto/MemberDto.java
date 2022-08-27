@@ -33,6 +33,10 @@ public class MemberDto {
     private long totalCount;
     private long seq;
 
+    private String zipcode;
+    private String addr;
+    private String addrDetail;
+
     // member를 MemberDto로 변경해
     public static MemberDto of(Member member){
         return MemberDto.builder()
@@ -51,7 +55,9 @@ public class MemberDto {
 
                 .adminYn(member.isAdminYn())
                 .userStatus(member.getUserStatus())
-
+                .zipcode(member.getZipcode())
+                .addr(member.getAddr())
+                .addrDetail(member.getAddrDetail())
                 .build();
     }
 
