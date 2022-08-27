@@ -43,7 +43,7 @@ public class MemberDto {
                 .userId(member.getUserId())
                 .userName(member.getUserName())
                 .phone(member.getPhone())
-                .password(member.getPassword())
+//                .password(member.getPassword())
                 .regDt(member.getRegDt())
                 .udtDt(member.getUdtDt())
                 .emailAuthYn(member.isEmailAuthYn())

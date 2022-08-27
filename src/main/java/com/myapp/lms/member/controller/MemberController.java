@@ -2,7 +2,6 @@ package com.myapp.lms.member.controller;
 
 import com.myapp.lms.admin.dto.MemberDto;
 import com.myapp.lms.course.dto.TakeCourseDto;
-import com.myapp.lms.course.entity.TakeCourse;
 import com.myapp.lms.course.model.ServiceResult;
 import com.myapp.lms.course.service.TakeCourseService;
 import com.myapp.lms.member.model.MemberInput;
@@ -163,5 +162,25 @@ public class MemberController {
         List<TakeCourseDto> list = takeCourseService.myCourse(userId);
         model.addAttribute("list", list);
         return "member/takecourse";
+    }
+
+    @GetMapping("/member/withdraw")
+    public String memberWithdraw(){
+        return "member/withdraw";
+    }
+    @PostMapping("/member/withdraw")
+    public String memberWithdrawSubmit(
+            Model model,
+            Principal principal,
+            MemberInput parameter){
+
+        String userId = principal.getName();
+        ServiceResult result = memberService.withdraw(userId, parameter.getPassword());
+        if(!result.isResult()){
+            model.addAttribute("message", result.getMessage());
+            return "common/error";
+        }
+
+        return "redirect:/member/logout";
     }
 }
