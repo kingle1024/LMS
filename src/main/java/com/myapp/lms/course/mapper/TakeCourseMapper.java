@@ -13,4 +13,6 @@ public interface TakeCourseMapper {
     long selectListCount(TakeCourseParam takeCourseParam);
     List<TakeCourseDto> selectList(TakeCourseParam parameter);
     // 페이징을 진행할 때에 보통 이렇게 2개를 받는다.
+    List<TakeCourseDto> selectListMyCourse(TakeCourseParam parameter);
+
 }

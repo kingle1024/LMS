@@ -1,10 +1,19 @@
 package com.myapp.lms.course.dto;
 
+import com.myapp.lms.course.entity.Course;
+import com.myapp.lms.course.entity.TakeCourse;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Data
 public class TakeCourseDto {
     long id;
@@ -28,5 +37,16 @@ public class TakeCourseDto {
     public String getRegDtText(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
         return regDt != null ? regDt.format(formatter) : "";
+    }
+    public static TakeCourseDto of(TakeCourse x){
+        return TakeCourseDto.builder()
+                .id(x.getId())
+                .userId(x.getUserId())
+                .courseId(x.getCourseId())
+                .payPrice(x.getPayPrice())
+                .status(x.getStatus())
+                .regDt(x.getRegDt())
+                .build()
+                ;
     }
 }

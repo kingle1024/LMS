@@ -1,7 +1,10 @@
 package com.myapp.lms.member.controller;
 
 import com.myapp.lms.admin.dto.MemberDto;
+import com.myapp.lms.course.dto.TakeCourseDto;
+import com.myapp.lms.course.entity.TakeCourse;
 import com.myapp.lms.course.model.ServiceResult;
+import com.myapp.lms.course.service.TakeCourseService;
 import com.myapp.lms.member.model.MemberInput;
 import com.myapp.lms.member.model.ResetPasswordInput;
 import com.myapp.lms.member.service.MemberService;
@@ -15,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor // memberService의 생성자가 추가되지 않아도 됨
 @Controller
 public class MemberController {
 
     private final MemberService memberService;
+    private final TakeCourseService takeCourseService;
 
     @RequestMapping("/member/login")
     public String login(){
@@ -154,6 +159,9 @@ public class MemberController {
     }
     @GetMapping("/member/takecourse")
     public String memberTakeCourse(Principal principal, Model model){
+        String userId = principal.getName();
+        List<TakeCourseDto> list = takeCourseService.myCourse(userId);
+        model.addAttribute("list", list);
         return "member/takecourse";
     }
 }
