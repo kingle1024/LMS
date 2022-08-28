@@ -33,4 +33,7 @@ public class Course {
     LocalDate saleEndDt;
     LocalDateTime regDt;
     LocalDateTime udtDt;
+
+    String fileName;
+    String urlFileName;
 }

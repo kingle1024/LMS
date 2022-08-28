@@ -16,4 +16,6 @@ public class CourseInput {
 
     // delete
     String idList;
+    String fileName;
+    String urlFileName;
 }

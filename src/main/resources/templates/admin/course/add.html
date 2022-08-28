@@ -29,7 +29,7 @@
     <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
 
     <div class="detail">
-        <form method="post" id="submitForm">
+        <form method="post" id="submitForm" enctype="multipart/form-data">
         <table>
             <tr>
                 <th>강좌 카테고리</th>
@@ -96,6 +96,10 @@
                 <td>
                     <input th:value="${detail.saleEndDt}" type="text" name="saleEndDtText" placeholder="yyyy-MM-dd" />
                 </td>
+            </tr>
+            <tr>
+                <th>첨부파일</th>
+                <td><input type="file" name="file"></td>
             </tr>
         </table>
 
