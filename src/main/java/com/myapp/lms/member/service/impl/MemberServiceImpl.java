@@ -17,6 +17,7 @@ import com.myapp.lms.member.repository.LoginHistoryRepository;
 import com.myapp.lms.member.repository.MemberRepository;
 import com.myapp.lms.member.service.MemberService;
 import com.myapp.lms.util.PasswordUtils;
+import com.myapp.lms.util.RequestUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -278,11 +279,8 @@ public class MemberServiceImpl implements MemberService {
         LoginHistory loginHistory = new LoginHistory();
         loginHistory.setUserId(request.getParameter("username"));
         loginHistory.setLogDt(LocalDateTime.now());
-        loginHistory.setUserAgent(request.getHeader("User-Agent"));
-        String ip = request.getHeader("X-FORWARDED-FOR");
-        // ip v6 형식
-        if(ip == null) ip = request.getRemoteAddr();
-        loginHistory.setIp(ip);
+        loginHistory.setUserAgent(RequestUtils.getUserAgent(request));
+        loginHistory.setIp(RequestUtils.getClientIP(request));
         loginHistoryRepository.save(loginHistory);
 
         return true;

@@ -94,16 +94,24 @@
             </tr>
         </table>
         <br/>
+        <div>
+            <a href="list.do">목록으로 이동</a>
+        </div>
+        <br/>
         <table>
             <thead>
-                <tr>
-                    <th>접속 일시</th>
-                    <th>IP</th>
-                    <th>접속 브라우저</th>
-                </tr>
+            <tr>
+                <th>NO</th>
+                <th>로그인 일자</th>
+                <th>접속 IP</th>
+                <th>접속 UserAgent</th>
+            </tr>
             </thead>
             <tbody>
             <tr th:each="l : ${loginHistory}">
+                <td>
+                    <p th:text="${l.id}"></p>
+                </td>
                 <td>
                     <p th:text="${l.logDtText}"></p>
                 </td>
@@ -116,10 +124,6 @@
             </tr>
             </tbody>
         </table>
-
-        <div>
-            <a href="list.do">목록으로 이동</a>
-        </div>
     </div>
 </body>
 </html>
