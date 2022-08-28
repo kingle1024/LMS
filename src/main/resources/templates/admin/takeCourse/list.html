@@ -50,6 +50,10 @@
 
     <script>
         $(document).ready(function(){
+            $('#searchCourseId').on('change', function (){
+               var id = $(this).val();
+               location.href = '?searchCourseId='+id;
+            });
             $('.row-buttons button').on('click', function(){
                 var status = $(this).val();
                 var id = $(this).closest('div').find('input[name=id]').val();
@@ -71,12 +75,16 @@
     <h1>강좌 관리</h1>
     <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
 
-
-
     <div class="list">
         <div class="buttons">
+            <select id="searchCourseId">
+                <option value="">전체 강좌</option>
+                <option th:each="x : ${courseList}"
+                        th:selected="${#strings.equals(param.searchCourseId, x.id)}"
+                        th:value="${x.id}"
+                        th:text="${x.subject}">자바 프로그래밍</option>
+            </select>
             <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
-
         </div>
 
         <table>
@@ -129,7 +137,7 @@
             </tbody>
         </table>
     </div>
-    <div class="pager" th:utext="${pager}"></div>
+    <div class="pager" th:if="${#lists.size(list) > 0}" th:utext="${pager}"></div>
 
 <form id="procForm" method="post" action="/admin/takeCourse/status.do">
     <input type="hidden" name="id" />

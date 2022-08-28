@@ -55,4 +55,10 @@ public interface CourseService{
     CourseDto frontDetail(long courseId);
 
     ServiceResult req(TakeCourseInput parameter);
+
+    /**
+     * 강좌 전체 목록
+     * @return
+     */
+    List<CourseDto> listAll();
 }
