@@ -5,12 +5,14 @@ import com.myapp.lms.admin.mapper.MemberMapper;
 import com.myapp.lms.admin.model.MemberParam;
 import com.myapp.lms.component.MailComponents;
 import com.myapp.lms.course.model.ServiceResult;
+import com.myapp.lms.member.entity.LoginHistory;
 import com.myapp.lms.member.entity.Member;
 import com.myapp.lms.member.entity.MemberCode;
 import com.myapp.lms.member.exception.MemberNotEmailAuthException;
 import com.myapp.lms.member.exception.MemberStopUserException;
 import com.myapp.lms.member.model.MemberInput;
 import com.myapp.lms.member.model.ResetPasswordInput;
+import com.myapp.lms.member.repository.LoginHistoryRepository;
 import com.myapp.lms.member.repository.MemberRepository;
 import com.myapp.lms.member.service.MemberService;
 import com.myapp.lms.util.PasswordUtils;
@@ -24,6 +26,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +39,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final MailComponents mailComponents;
     private final MemberMapper memberMapper;
+    private final LoginHistoryRepository loginHistoryRepository;
     @Override
     public boolean register(MemberInput parameter) {
         Optional<Member> optionalMember = memberRepository.findById(parameter.getUserId());
@@ -266,6 +270,22 @@ public class MemberServiceImpl implements MemberService {
         memberRepository.save(member);
 
         return new ServiceResult(true);
+    }
+
+    @Override
+    public boolean loginHistory(HttpServletRequest request) {
+        LoginHistory loginHistory = new LoginHistory();
+        loginHistory.setUserId(request.getParameter("username"));
+        loginHistory.setLogDt(LocalDateTime.now());
+        loginHistory.setUserAgent(request.getHeader("User-Agent"));
+        String ip = request.getHeader("X-FORWARDED-FOR");
+        // ip v6 형식
+        if(ip == null) ip = request.getRemoteAddr();
+        loginHistory.setIp(ip);
+        System.out.println("++"+loginHistory.getId());
+        loginHistoryRepository.save(loginHistory);
+
+        return true;
     }
 
     private void sendMail(Member member) {

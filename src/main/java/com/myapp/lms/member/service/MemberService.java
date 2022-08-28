@@ -8,6 +8,7 @@ import com.myapp.lms.member.model.MemberInput;
 import com.myapp.lms.member.model.ResetPasswordInput;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Provider;
 import java.util.List;
 
@@ -84,4 +85,6 @@ public interface MemberService extends UserDetailsService {
     ServiceResult updateMember(MemberInput parameter);
 
     ServiceResult withdraw(String userId, String password);
+
+    boolean loginHistory(HttpServletRequest request);
 }
