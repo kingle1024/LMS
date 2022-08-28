@@ -10,6 +10,7 @@ import com.myapp.lms.member.entity.Member;
 import com.myapp.lms.member.entity.MemberCode;
 import com.myapp.lms.member.exception.MemberNotEmailAuthException;
 import com.myapp.lms.member.exception.MemberStopUserException;
+import com.myapp.lms.member.model.LoginHistoryDto;
 import com.myapp.lms.member.model.MemberInput;
 import com.myapp.lms.member.model.ResetPasswordInput;
 import com.myapp.lms.member.repository.LoginHistoryRepository;
@@ -282,10 +283,24 @@ public class MemberServiceImpl implements MemberService {
         // ip v6 형식
         if(ip == null) ip = request.getRemoteAddr();
         loginHistory.setIp(ip);
-        System.out.println("++"+loginHistory.getId());
         loginHistoryRepository.save(loginHistory);
 
         return true;
+    }
+
+    @Override
+    public List<LoginHistoryDto> loginHistoryById(String userId) {
+        Optional<List<LoginHistory>> optionalLoginHistoryList =
+                loginHistoryRepository.findAllByUserIdOrderByLogDtDesc(userId);
+
+        if(!optionalLoginHistoryList.isPresent()){
+            return null;
+        }
+
+        List<LoginHistory> loginHistoryList = optionalLoginHistoryList.get();
+        List<LoginHistoryDto> list = LoginHistoryDto.of(loginHistoryList);
+
+        return list;
     }
 
     private void sendMail(Member member) {

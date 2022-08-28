@@ -11,6 +11,9 @@
         .detail table th, detail table td{
             border:solid 1px #000;
         }
+        table td{
+            border:solid 1px #000;
+        }
     </style>
 </head>
 <body>
@@ -25,7 +28,7 @@
             <tr>
                 <td>아이디</td>
                 <td>
-                    <p th:text="${member.userId}"
+                    <p th:text="${member.userId}"></p>
                 </td>
             </tr>
             <tr>
@@ -90,6 +93,30 @@
                 </td>
             </tr>
         </table>
+        <br/>
+        <table>
+            <thead>
+                <tr>
+                    <th>접속 일시</th>
+                    <th>IP</th>
+                    <th>접속 브라우저</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each="l : ${loginHistory}">
+                <td>
+                    <p th:text="${l.logDtText}"></p>
+                </td>
+                <td>
+                    <p th:text="${l.ip}"></p>
+                </td>
+                <td>
+                    <p th:text="${l.userAgent}"></p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
         <div>
             <a href="list.do">목록으로 이동</a>
         </div>

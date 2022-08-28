@@ -1,12 +1,13 @@
 package com.myapp.lms.admin.controller;
 
 import com.myapp.lms.admin.dto.MemberDto;
-import com.myapp.lms.admin.model.MemberParam;
 import com.myapp.lms.admin.model.MemberInput;
+import com.myapp.lms.admin.model.MemberParam;
 import com.myapp.lms.course.controller.BaseController;
+import com.myapp.lms.member.model.LoginHistoryDto;
 import com.myapp.lms.member.service.MemberService;
-import com.myapp.lms.util.PageUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,10 +46,17 @@ public class AdminMemberController extends BaseController {
     }
 
     @GetMapping("/admin/member/detail.do")
-    public String detail(Model model, MemberParam parameter){
+    public String detail(
+            Model model,
+            MemberParam parameter,
+            Pageable pageable
+            ){
         parameter.init();
         MemberDto member = memberService.detail(parameter.getUserId());
         model.addAttribute("member", member);
+
+        List<LoginHistoryDto> loginHistory = memberService.loginHistoryById(parameter.getUserId());
+        model.addAttribute("loginHistory", loginHistory);
 
         return "admin/member/detail";
     }

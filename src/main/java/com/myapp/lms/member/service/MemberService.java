@@ -3,9 +3,12 @@ package com.myapp.lms.member.service;
 import com.myapp.lms.admin.dto.MemberDto;
 import com.myapp.lms.admin.model.MemberParam;
 import com.myapp.lms.course.model.ServiceResult;
+import com.myapp.lms.member.entity.LoginHistory;
 import com.myapp.lms.member.entity.Member;
+import com.myapp.lms.member.model.LoginHistoryDto;
 import com.myapp.lms.member.model.MemberInput;
 import com.myapp.lms.member.model.ResetPasswordInput;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -86,5 +89,18 @@ public interface MemberService extends UserDetailsService {
 
     ServiceResult withdraw(String userId, String password);
 
+    /**
+     * 로그인 히스토리 남기기
+     * @param request
+     * @return
+     */
     boolean loginHistory(HttpServletRequest request);
+
+    /**
+     * 로그인 히스토리 가져오기
+     * @param userId
+     * @return
+     */
+    List<LoginHistoryDto> loginHistoryById(String userId);
+
 }
