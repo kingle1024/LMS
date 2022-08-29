@@ -45,11 +45,6 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public boolean update(CategoryInput parameter) {
-//        Optional<Category> optionalCategory
-//                = categoryRepository.findByCategoryName(parameter.getCategoryName());
-//        if(!optionalCategory.isPresent()){
-//            return false;
-//        }
         Optional<Category> optionalCategory =
                 categoryRepository.findById(parameter.getId());
         if(!optionalCategory.isPresent()){
