@@ -78,20 +78,16 @@
     </script>
 <body>
 
-    <h1>강좌 관리</h1>
+    <h1>배너 관리</h1>
     <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
-
-
 
     <div class="list">
         <div class="buttons">
-            <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
-
             <a href="/admin/banner/add.do">배너 등록</a>
             |
             <button id="deleteButton" type="button">배너 삭제</button>
         </div>
-
+        <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
         <table>
             <thead>
                 <tr>
@@ -107,7 +103,7 @@
                     <td>
                         <input type="checkbox" th:value="${l.id}">
                         <input type="hidden" name="id" th:value="${l.id}">
-                    </td>
+                    </td>일
                     <td>
                         <p th:text="${l.id}"></p>
                     </td>
@@ -119,20 +115,20 @@
                         </p>
                     </td>
                     <td>
-                        <img src="${l.fileName}" />
+                        <img width="200px" th:src="${l.urlFileName}" />
                     </td>
-                    <td th:text="${l.regDt}"></td>
+                    <td th:text="${l.regDtText}"></td>
                     <div class="inline-div">
                         <form name="deleteForm" method="post" action="/admin/banner/delete.do">
                             <input type="hidden" name="id" th:value="${l.id}" />
                         </form>
                     </div>
                 </tr>
-<!--                <tr th:if="${#lists.size(list) < 1}">-->
-<!--                    <td colspan="5">-->
-<!--                        <p class="nothing">내용이 없습니다.</p>-->
-<!--                    </td>-->
-<!--                </tr>-->
+                <tr th:if="${#lists.size(list) < 1}">
+                    <td colspan="5">
+                        <p class="nothing">내용이 없습니다.</p>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

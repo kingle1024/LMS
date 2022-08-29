@@ -20,10 +20,6 @@
     <script>
         $(document).ready(function(){
             $('.update-button').on('click', function(){
-                if(!confirm('배너를 수정하시겠습니까?')){
-                    return false;
-                }
-
                 var $this = $(this); // this는 현재 버튼이다.
                 var $tr = $this.closest('tr');
 
