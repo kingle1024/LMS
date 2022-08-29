@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>배너 관리</title>
+    <style>
+        .list table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .list table th{
+            border:solid 1px #000;
+        }
+        .list table td{
+            border:solid 1px #000;
+        }
+        .list .buttons{
+            padding: 10px 0;
+        }
+        .list .buttons a, .list .buttons button{
+            border-width: 0;
+            background-color : transparent;
+            text-decoration: underline;
+            font-size: 14px;
+            line-height:20px;
+            height:20px;
+            color: #000;
+            cursor:pointer;
+        }
+        .list .buttons .total-count{
+            position: absolute;
+            top: 0;
+            right : 0;
+        }
+
+        .pager {
+            margin-top : 20px;
+            text-align: center;
+        }
+        .pager a.on{
+            font-weight: bold;
+            color:red;
+        }
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function (){
+             $('#selectAll').on('click', function(){
+                var checked = $(this).is(':checked');
+                $('#dataList input[type=checkbox]').each(function(k, v){
+                    $(this).prop('checked', checked);
+                });
+
+             });
+
+            $('#deleteButton').on('click', function(){
+                var $checked = $('#dataList input[type=checkbox]:checked');
+
+                if($checked.length < 1){
+                    alert('삭제할 데이터를 선택해 주세요.');
+                    return false;
+                }
+                if(!confirm('선택한 데이터를 삭제하시겠습니까?')){
+                    return false;
+                }
+                var idList = [];
+                $.each($checked, function(k, v){
+                    idList.push($(this).val());
+                });
+
+                var $deleteForm = $('form[name=deleteForm]');
+                $deleteForm.find('input[name=idList]').val(idList.join(','));
+                $deleteForm.submit();
+            });
+        });
+    </script>
+<body>
+
+    <h1>강좌 관리</h1>
+    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+
+
+
+    <div class="list">
+        <div class="buttons">
+            <p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
+
+            <a href="/admin/banner/add.do">배너 등록</a>
+            |
+            <button id="deleteButton" type="button">배너 삭제</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th><input id="selectAll" type="checkbox"></th>
+                    <th>NO</th>
+                    <th>배너명</th>
+                    <th>이미지</th>
+                    <th>등록일</th>
+                </tr>
+            </thead>
+            <tbody id="dataList">
+                <tr th:each="l : ${list}">
+                    <td>
+                        <input type="checkbox" th:value="${l.id}">
+                        <input type="hidden" name="id" th:value="${l.id}">
+                    </td>
+                    <td>
+                        <p th:text="${l.id}"></p>
+                    </td>
+                    <td>
+                        <p>
+                            <a th:href="'edit.do?id=' + ${l.id}"
+                               th:text="${l.bannerName}">배너명
+                            </a>
+                        </p>
+                    </td>
+                    <td>
+                        <img src="${l.fileName}" />
+                    </td>
+                    <td th:text="${l.regDt}"></td>
+                    <div class="inline-div">
+                        <form name="deleteForm" method="post" action="/admin/banner/delete.do">
+                            <input type="hidden" name="id" th:value="${l.id}" />
+                        </form>
+                    </div>
+                </tr>
+<!--                <tr th:if="${#lists.size(list) < 1}">-->
+<!--                    <td colspan="5">-->
+<!--                        <p class="nothing">내용이 없습니다.</p>-->
+<!--                    </td>-->
+<!--                </tr>-->
+            </tbody>
+        </table>
+    </div>
+    <div class="pager" th:utext="${pager}"></div>
+
+<form name="deleteForm" method="post" action="/admin/banner/delete.do">
+    <input type="hidden" name="idList" />
+    <button type="submit">삭제</button>
+</form>
+</body>
+</html>

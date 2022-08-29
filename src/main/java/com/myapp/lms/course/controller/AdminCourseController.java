@@ -130,7 +130,6 @@ public class AdminCourseController extends BaseController{
                 File newFile = new File(saveFileName);
                 FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(newFile));
             }catch (IOException e){
-                System.out.println("========================== - 1");
                 log.info(e.getMessage());
             }
         }

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rkd</title>
+    <style>
+        .detail table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .detail table th{
+            border:solid 1px #000;
+        }
+        .detail table td{
+            border:solid 1px #000;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.update-button').on('click', function(){
+                if(!confirm('배너를 수정하시겠습니까?')){
+                    return false;
+                }
+
+                var $this = $(this); // this는 현재 버튼이다.
+                var $tr = $this.closest('tr');
+
+                // var usingYn = $tr.find('input[type=checkbox]')[0].checked;
+                var usingYn = document.getElementsByName("usingYnCheck")[0].checked;
+                // console.log("sing:"+usingYn);
+                $updateForm = $('form[name=submitForm]');
+                $updateForm.find('input[name=usingYn]').val(usingYn);
+
+                $updateForm.submit();
+            });
+        });
+    </script>
+<body>
+
+    <h1>강좌 관리 - 강좌 등록</h1>
+    <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+
+    <div class="detail">
+        <form method="post" name="submitForm" id="submitForm" enctype="multipart/form-data" th:object="${banner}">
+        <table>
+            <tr>
+                <th>배너명</th>
+                <td>
+                    <input th:value="${banner.bannerName}" type="text" name="bannerName" placeholder="배너명 입력" required>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    배너 파일
+                </th>
+                <td>
+                    <input type="file" name="file" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    링크 주소
+                </th>
+                <td>
+                    <input th:value="${banner.link}" type="text" name="link" placeholder="링크 주소 입력" required>
+                </td>
+            </tr>
+            <tr>
+                <th>오픈 방법</th>
+                <td>
+                    <select name="target" required>
+                        <option value="">오픈 방법 선택</option>
+                        <option th:selected="${banner.target == '_blank'}" value="_blank">새창</option>
+                        <option th:selected="${banner.target == ''}" value="">기존창</option>
+
+<!--                        <option th:each="x : ${category}"-->
+<!--                                th:value="${x.id}"-->
+<!--                                th:selected="${detail.categoryId == x.id}"-->
+<!--                                th:text="${x.categoryName}">기획</option>-->
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    정렬 순서
+                </th>
+                <td>
+                    <input th:value="${banner.rank}" type="text" name="rank" required placeholder="정렬 순서 입력" />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    공개 여부
+                </th>
+                <td>
+<!--                    <input th:checked="${banner.usingYn}" type="checkbox" th:id="'usingYn_' + ${banner.id}" th:name="'usingYn_'+ ${banner.id}" th:value="${banner.usingYn}" />-->
+                    <input type="checkbox" th:checked="${banner.usingYn}" name="usingYnCheck" id="usingYnCheck">
+                    <label th:for="'usingYn_' + ${banner.id}">사용</label>
+                    <input type="hidden" name="usingYn">
+                </td>
+            </tr>
+        </table>
+
+        <div class="buttons">
+<!--            <button class="update-button" th:if="${editMode}" type="button">배너 수정 하기</button>-->
+            <button class="update-button" th:if="${editMode}" type="button">배너 수정 하기</button>
+            <button class="update-button" th:if="${!editMode}" type="button">배너 등록 하기</button>
+            <a href="/admin/banner/list.do">목록 이동</a>
+        </div>
+        </form>
+    </div>
+
+
+</body>
+</html>
