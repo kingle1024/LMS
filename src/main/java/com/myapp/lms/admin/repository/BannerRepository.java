@@ -9,4 +9,5 @@ import java.util.Optional;
 
 public interface BannerRepository extends JpaRepository<Banner, Long> {
     long countBy();
+    Optional<List<Banner>> findByUsingYnTrueOrderByRankDesc();
 }

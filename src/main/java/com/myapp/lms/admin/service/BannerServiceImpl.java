@@ -5,17 +5,12 @@ import com.myapp.lms.admin.entity.Banner;
 import com.myapp.lms.admin.model.BannerInput;
 import com.myapp.lms.admin.model.BannerParam;
 import com.myapp.lms.admin.repository.BannerRepository;
-import com.myapp.lms.course.dto.CourseDto;
 import com.myapp.lms.course.entity.Course;
 import com.myapp.lms.course.entity.TakeCourse;
-import com.myapp.lms.course.mapper.CourseMapper;
-import com.myapp.lms.course.model.CourseInput;
-import com.myapp.lms.course.model.CourseParam;
 import com.myapp.lms.course.model.ServiceResult;
 import com.myapp.lms.course.model.TakeCourseInput;
 import com.myapp.lms.course.repository.CourseRepository;
 import com.myapp.lms.course.repository.TakeCourseRepository;
-import com.myapp.lms.course.service.CourseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -124,21 +119,15 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public List<BannerDto> frontList(BannerParam parameter) {
+    public List<BannerDto> frontList() {
         // all
-//        if(parameter.getCategoryId() < 1) {
-//            List<Banner> courseList = bannerRepository.findAll();
-//            return BannerDto.of(courseList);
-//        }
+        Optional<List<Banner>> optionalBanners = bannerRepository.findByUsingYnTrueOrderByRankDesc();
+        if(!optionalBanners.isPresent()){
+            return null;
+        }
+        List<Banner> list = optionalBanners.get();
 
-//        return courseRepository.findByCategoryId(parameter.getCategoryId())
-//                .map(CourseDto::of).orElse(null);
-//        Optional<List<Banner>> optionalCourses = bannerRepository.findByCategoryId(parameter.getCategoryId());
-//        if(optionalCourses.isPresent()){
-//            return BannerDto.of(optionalCourses.get());
-//        }
-
-        return null;
+        return BannerDto.of(list);
     }
 
     @Override

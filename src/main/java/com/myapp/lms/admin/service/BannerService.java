@@ -48,7 +48,7 @@ public interface BannerService {
      * @param parameter
      * @return
      */
-    List<BannerDto> frontList(BannerParam parameter);
+    List<BannerDto> frontList();
 
     /**
      * 프론트 강좌 상세 정보
