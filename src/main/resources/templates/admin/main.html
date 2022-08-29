@@ -4,24 +4,27 @@
     <meta charset="UTF-8">
     <title>관리자 화면</title>
 </head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.bxslider').bxSlider();
+    });
+</script>
 <body>
     <h1>관리자 메인 화면</h1>
     <div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-
     <hr/>
+    <br/>
     <div class="home__slider">
         <div class="bxslider">
             <div th:each="l : ${list}">
-                <a th:alt="${l.bannerName}" th:target="${l.target}" th:href="${l.link}"></a>
-                <img th:src="${l.urlFileName}" />
+                <a th:alt="${l.bannerName}" th:target="${l.target}" th:href="${l.link}">
+                    <img th:src="${l.urlFileName}" />
+                </a>
             </div>
         </div>
     </div>
-<!--    <img src="/files/2022/08/0e334f19ec4f480a990c4b359a4e5427.png" />-->
-    <img src="/files/2022/08/dc0d37a414214390ae797bce6651004f.png" />
-
 </body>
 </html>
