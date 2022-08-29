@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,11 @@ public class BannerDto {
 
     long seq;
     long totalCount;
+
+    public String getRegDtText(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+        return regDt != null ? regDt.format(formatter) : "";
+    }
 
     public static BannerDto of(Banner banner){
         return BannerDto.builder()
