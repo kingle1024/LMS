@@ -1,6 +1,7 @@
 package com.myapp.lms.admin.controller;
 
 import com.myapp.lms.admin.dto.BannerDto;
+import com.myapp.lms.admin.entity.BannerCode;
 import com.myapp.lms.admin.model.BannerInput;
 import com.myapp.lms.admin.model.BannerParam;
 import com.myapp.lms.admin.service.BannerService;
@@ -52,8 +53,8 @@ public class AdminBannerController extends BaseController {
     @GetMapping(value= {"/admin/banner/add.do", "/admin/banner/edit.do"})
     public String add(HttpServletRequest request, BannerDto bannerDto,
                       BannerInput parameter, Model model ) {
-        System.out.println("front:"+parameter.isUsingYn());
-        System.out.println("b_front:"+bannerDto.isUsingYn());
+        BannerCode bannerCode = new BannerCode();
+        model.addAttribute("bannerCodeList", bannerCode.list());
         boolean editMode = request.getRequestURI().contains("/edit.do");
         BannerDto detail = new BannerDto();
 

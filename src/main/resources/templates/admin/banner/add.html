@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>rkd</title>
+    <title>배너</title>
     <style>
         .detail table{
             width: 100%;
@@ -69,13 +69,11 @@
                 <td>
                     <select name="target" required>
                         <option value="">오픈 방법 선택</option>
-                        <option th:selected="${banner.target == '_blank'}" value="_blank">새창</option>
-                        <option th:selected="${banner.target == ''}" value="">기존창</option>
-
-<!--                        <option th:each="x : ${category}"-->
-<!--                                th:value="${x.id}"-->
-<!--                                th:selected="${detail.categoryId == x.id}"-->
-<!--                                th:text="${x.categoryName}">기획</option>-->
+                        <option th:each="x : ${bannerCodeList}"
+                                th:value="${x['key']}"
+                                th:text="${x['value']}"
+                                th:selected="${banner.target == x['key']}"
+                        >창</option>
                     </select>
                 </td>
             </tr>
