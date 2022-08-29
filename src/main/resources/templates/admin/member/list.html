@@ -60,6 +60,7 @@
                     <th>이메일 인증 여부</th>
                     <th>가입일</th>
                     <th>관리자여부</th>
+                    <th>마지막 로그인 일자</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,6 +83,9 @@
                     <td>
                         <p th:if="${l.adminYn}">Y</p>
                         <p th:if="${l.adminYn eq false}">N</p>
+                    </td>
+                    <td>
+                        <p th:text="${l.logDtText}"></p>
                     </td>
                 </tr>
             </tbody>

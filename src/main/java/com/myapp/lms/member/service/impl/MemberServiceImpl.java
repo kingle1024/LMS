@@ -30,6 +30,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -157,18 +158,29 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberDto> list(MemberParam parameter) {
-//        MemberDto parameter = new MemberDto();
         long totalCount = memberMapper.selectListCount(parameter);
         List<MemberDto> list = memberMapper.selectList(parameter);
+
         if(!CollectionUtils.isEmpty(list)){ // empty가 아니면
             int i = 0;
             for(MemberDto x : list){
+                Optional<LoginHistory> optionalLoginHistory = loginHistoryRepository.findTop1ByUserIdOrderByLogDtDesc(x.getUserId());
+                if(optionalLoginHistory.isPresent()){
+                    LoginHistory loginHistory = optionalLoginHistory.get();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+
+                    if(loginHistory.getLogDt() != null){
+                        String logText = loginHistory.getLogDt().format(formatter);
+                        x.setLogDtText(logText);
+                    }else{
+                        x.setLogDtText("");
+                    }
+                }
                 x.setTotalCount(totalCount);
                 x.setSeq(totalCount - parameter.getPageStart() - i);
                 i++;
             }
         }
-//        return memberRepository.findAll();
         return list;
     }
 

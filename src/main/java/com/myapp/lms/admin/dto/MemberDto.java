@@ -36,6 +36,8 @@ public class MemberDto {
     private String zipcode;
     private String addr;
     private String addrDetail;
+    private String logDtText;
+
 
     // member를 MemberDto로 변경해
     public static MemberDto of(Member member){
