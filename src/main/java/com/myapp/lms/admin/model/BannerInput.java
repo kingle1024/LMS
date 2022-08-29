@@ -22,4 +22,6 @@ public class BannerInput extends CommonParam{
 
     long seq;
     long totalCount;
+
+    String idList;
 }

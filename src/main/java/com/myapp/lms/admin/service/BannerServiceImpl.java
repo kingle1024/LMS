@@ -89,7 +89,7 @@ public class BannerServiceImpl implements BannerService {
                 }catch(Exception e){}
 
                 if (id > 0) {
-                    courseRepository.deleteById(id);
+                    bannerRepository.deleteById(id);
                 }
             }
         }
