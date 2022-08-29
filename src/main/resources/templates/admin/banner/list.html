@@ -103,7 +103,7 @@
                     <td>
                         <input type="checkbox" th:value="${l.id}">
                         <input type="hidden" name="id" th:value="${l.id}">
-                    </td>일
+                    </td>
                     <td>
                         <p th:text="${l.id}"></p>
                     </td>
@@ -136,7 +136,6 @@
 
 <form name="deleteForm" method="post" action="/admin/banner/delete.do">
     <input type="hidden" name="idList" />
-    <button type="submit">삭제</button>
 </form>
 </body>
 </html>
