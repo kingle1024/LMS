@@ -43,8 +43,6 @@ public class AdminBannerController extends BaseController {
         String pagerHtml =
                 getPaperHtml(totalCount, parameter.getPageSize(),
                         parameter.getPageIndex(), queryString);
-//        List<CategoryDto> list = categoryService.list();
-//        model.addAttribute("list", list);
 
         model.addAttribute("list", bannerList);
         model.addAttribute("totalCount", totalCount);
@@ -80,7 +78,7 @@ public class AdminBannerController extends BaseController {
             BannerInput parameter,
             HttpServletRequest request,
             MultipartFile file){
-//        boolean result = categoryService.add(parameter.getCategoryName());
+
         String saveFileName = "";
         String urlFileName = "";
         if(file != null){
@@ -126,7 +124,7 @@ public class AdminBannerController extends BaseController {
                 String.format("%s/%d/%02d/", baseLocalPath, now.getYear(), now.getMonthValue()),
                 String.format("%s/%d/%02d/", baseLocalPath, now.getYear(), now.getMonthValue(), now.getDayOfMonth())
         };
-        String urlDir = String.format("%s/%d/%02d/", baseLocalPath, now.getYear(), now.getMonthValue(), now.getDayOfMonth());
+        String urlDir = String.format("%s/%d/%02d/", baseUrlPath, now.getYear(), now.getMonthValue(), now.getDayOfMonth());
         for(String dir : dirs){
             File file = new File(dir);
             if(!file.isDirectory()){
