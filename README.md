@@ -11,7 +11,7 @@
 - 강의 추가, 읽기, 수정, 삭제
 - 강의 카테고리 추가, 읽기, 수정, 삭제
 
-[구현 상세]
+[주요 기술]
 - Spring Security WebSecurityConfigurerAdapter
   - 권한 처리, 로그인, 예외 처리
   - authorizeRequests(), formLogin(), exceptionHandling()
